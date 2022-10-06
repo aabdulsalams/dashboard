@@ -7,7 +7,7 @@ pipeline {
         server_endpoint = '10.148.0.61'
         server_credential = 'automation-ssh'
     }
-
+    // mulit source => https://stackoverflow.com/questions/14843696/checkout-multiple-git-repos-into-same-jenkins-workspace
     stages {
         stage("Set Variables") {
             steps {
