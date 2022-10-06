@@ -26,6 +26,13 @@ pipeline {
                 }
             }
         }
+        stage("Store Builded Application To Cloud Storage") {
+            steps {
+                script {
+                    //https://plugins.jenkins.io/google-storage-plugin/
+                }
+            }
+        }
     }
     
     post {
