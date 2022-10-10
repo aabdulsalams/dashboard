@@ -27,12 +27,21 @@ pipeline {
 //                 }
 //             }
 //         }
+//         stage("Store Builded Application To Cloud Storage") {
+//             steps {
+//                 sh 'echo "MASUKKKKKK"'
+//                 //https://plugins.jenkins.io/google-storage-plugin/
+//                 // If we name pattern build_environment.txt, this will upload build_environment.txt to our GCS bucket.
+//                 step([$class: 'ClassicUploadStep', credentialsId: 'adtech-cloud-storage',  bucket: "gs://${env.storage_endpoint}", pattern: env.file_target])
+//             }
+//         }
         stage("Store Builded Application To Cloud Storage") {
-            steps {
-                sh 'echo "MASUKKKKKK"'
-                //https://plugins.jenkins.io/google-storage-plugin/
-                // If we name pattern build_environment.txt, this will upload build_environment.txt to our GCS bucket.
-                step([$class: 'ClassicUploadStep', credentialsId: 'adtech-cloud-storage',  bucket: "gs://${env.storage_endpoint}", pattern: env.file_target])
+           steps {
+               withCredentials([file(credentialsId: 'cloud-storage-object-admin', variable: 'GC_KEY')]) {
+                   sh "gcloud auth activate-service-account --key-file=${GC_KEY}"
+                   sh "gcloud container clusters get-credentials ${cluster} --zone ${zone} --project ${project}"
+                   sh "gsutil -m cp -R src gs://${storage_endpoint}"
+                }
             }
         }
     }
