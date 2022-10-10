@@ -29,13 +29,10 @@ pipeline {
 //         }
         stage("Store Builded Application To Cloud Storage") {
             steps {
-                script {
-                    sh 'echo "MASUKKKKKK"'
-                    //https://plugins.jenkins.io/google-storage-plugin/
-                    // If we name pattern build_environment.txt, this will upload build_environment.txt to our GCS bucket.
-                    step([$class: 'ClassicUploadStep', credentialsId: 'adtech-cloud-storage',  bucket: "gs://${env.storage_endpoint}",
-                          pattern: env.file_target])
-                }
+                sh 'echo "MASUKKKKKK"'
+                //https://plugins.jenkins.io/google-storage-plugin/
+                // If we name pattern build_environment.txt, this will upload build_environment.txt to our GCS bucket.
+                step([$class: 'ClassicUploadStep', credentialsId: 'adtech-cloud-storage',  bucket: "gs://${env.storage_endpoint}", pattern: env.file_target])
             }
         }
     }
