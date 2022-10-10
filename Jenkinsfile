@@ -6,6 +6,7 @@ pipeline {
         app_name_basic = '360-client-portal-frontend'
         server_endpoint = '10.148.0.61'
         server_credential = 'automation-ssh'
+        file_target = 'dist'
     }
     // mulit source => https://stackoverflow.com/questions/14843696/checkout-multiple-git-repos-into-same-jenkins-workspace
     stages {
@@ -30,6 +31,9 @@ pipeline {
             steps {
                 script {
                     //https://plugins.jenkins.io/google-storage-plugin/
+                    // If we name pattern build_environment.txt, this will upload build_environment.txt to our GCS bucket.
+                    step([$class: 'ClassicUploadStep', credentialsId: 'adtech-cloud-storage',  bucket: "gs://${storage_endpoint}",
+                          pattern: ${file_target}])
                 }
             }
         }
