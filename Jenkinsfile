@@ -20,13 +20,13 @@ pipeline {
                 }
             }
         }
-        stage("Build Application") {
-            steps {
-                script {
-                    sh "npm run build"
-                }
-            }
-        }
+//         stage("Build Application") {
+//             steps {
+//                 script {
+//                     sh "npm run build"
+//                 }
+//             }
+//         }
         stage("Store Builded Application To Cloud Storage") {
             steps {
                 script {
