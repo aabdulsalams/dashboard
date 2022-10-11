@@ -17,6 +17,7 @@ pipeline {
                     if ("${env.BRANCH_NAME}" == "main") {
                         env.service_dir = "dashboard/prod"
                         env.storage_end_point = "${basic_storage_endpoint}/dashboard/prod"
+                    }
                     else if ("${env.BRANCH_NAME}" == "testing") {
                         env.service_dir = "dashboard/testing"
                         env.storage_end_point = "${basic_storage_endpoint}/dashboard/testing"
