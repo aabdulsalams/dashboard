@@ -11,43 +11,37 @@ pipeline {
         stage("Set Variables") {
             steps {
                 script {
-                    env.testing = scm.getUserRemoteConfigs()[0].getUrl().tokenize('/').last().split("\\.")[0]
+                    env.feature_name = scm.getUserRemoteConfigs()[0].getUrl().tokenize('/').last().split("\\.")[0]
                     echo "${testing}"
                     // ganti sementara master => main
                     if ("${env.BRANCH_NAME}" == "main") {
                         env.service_dir = "dashboard/prod"
-                        env.storage_endpoint = "${basic_storage_endpoint}/dashboard/prod"
+                        env.storage_endpoint = "${basic_storage_endpoint}/${feature_name}/prod"
                     }
                     else if ("${env.BRANCH_NAME}" == "testing") {
                         env.service_dir = "dashboard/testing"
-                        env.storage_endpoint = "${basic_storage_endpoint}/dashboard/testing"
+                        env.storage_endpoint = "${basic_storage_endpoint}/${feature_name}/testing"
                     }
                     else if ("${env.BRANCH_NAME}" == "release") {
                         env.service_dir = "dashboard/prerelase"
-                        env.storage_endpoint = "${basic_storage_endpoint}/dashboard/prerelease"
+                        env.storage_endpoint = "${basic_storage_endpoint}/${feature_name}/prerelease"
                     }
                     else {
                         env.service_dir = "dashboard/unknown"
-                        env.storage_endpoint = "${basic_storage_endpoint}/dashboard/unknown"
+                        env.storage_endpoint = "${basic_storage_endpoint}/${feature_name}/unknown"
                     }
                 }
             }
         }
-//         stage("Build Application") {
-//             steps {
-//                 script {
+        https://plugins.jenkins.io/nodejs/
+        stage("Build Application") {
+            steps {
+                script {
+                    sh "node --version"
 //                     sh "npm run build"
-//                 }
-//             }
-//         }
-//         stage("Store Builded Application To Cloud Storage") {
-//             steps {
-//                 sh 'echo "MASUKKKKKK"'
-//                 //https://plugins.jenkins.io/google-storage-plugin/
-//                 // If we name pattern build_environment.txt, this will upload build_environment.txt to our GCS bucket.
-//                 step([$class: 'ClassicUploadStep', credentialsId: 'adtech-cloud-storage',  bucket: "gs://${env.storage_endpoint}", pattern: env.file_target])
-//             }
-//         }
+                }
+            }
+        }
         stage("Store Builded Application To Cloud Storage") {
            steps {
                withCredentials([file(credentialsId: 'cloud-storage-object-admin', variable: 'GC_KEY')]) {
