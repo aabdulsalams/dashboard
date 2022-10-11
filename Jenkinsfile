@@ -1,5 +1,7 @@
 pipeline {
     agent any
+    
+    tools {nodejs "nodejs"}
 
     environment {
         basic_storage_endpoint = 'nanda-test/testing-micro-fe'
