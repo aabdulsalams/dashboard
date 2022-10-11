@@ -12,7 +12,6 @@ pipeline {
             steps {
                 script {
                     env.feature_name = scm.getUserRemoteConfigs()[0].getUrl().tokenize('/').last().split("\\.")[0]
-                    echo "${testing}"
                     // ganti sementara master => main
                     if ("${env.BRANCH_NAME}" == "main") {
                         env.service_dir = "dashboard/prod"
@@ -33,14 +32,14 @@ pipeline {
                 }
             }
         }
-//         stage("Build Application") {
-//             steps {
-//                 script {
-//                     sh "node --version"
-// //                     sh "npm run build"
-//                 }
-//             }
-//         }
+        stage("Build Application") {
+            steps {
+                script {
+                    sh "node --version"
+//                     sh "npm run build"
+                }
+            }
+        }
         stage("Store Builded Application To Cloud Storage") {
            steps {
                withCredentials([file(credentialsId: 'cloud-storage-object-admin', variable: 'GC_KEY')]) {
