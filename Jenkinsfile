@@ -16,19 +16,19 @@ pipeline {
                     // ganti sementara master => main
                     if ("${env.BRANCH_NAME}" == "main") {
                         env.service_dir = "dashboard/prod"
-                        env.storage_end_point = "${basic_storage_endpoint}/dashboard/prod"
+                        env.storage_endpoint = "${basic_storage_endpoint}/dashboard/prod"
                     }
                     else if ("${env.BRANCH_NAME}" == "testing") {
                         env.service_dir = "dashboard/testing"
-                        env.storage_end_point = "${basic_storage_endpoint}/dashboard/testing"
+                        env.storage_endpoint = "${basic_storage_endpoint}/dashboard/testing"
                     }
                     else if ("${env.BRANCH_NAME}" == "release") {
                         env.service_dir = "dashboard/prerelase"
-                        env.storage_end_point = "${basic_storage_endpoint}/dashboard/prerelease"
+                        env.storage_endpoint = "${basic_storage_endpoint}/dashboard/prerelease"
                     }
                     else {
                         env.service_dir = "dashboard/unknown"
-                        env.storage_end_point = "${basic_storage_endpoint}/dashboard/unknown"
+                        env.storage_endpoint = "${basic_storage_endpoint}/dashboard/unknown"
                     }
                 }
             }
