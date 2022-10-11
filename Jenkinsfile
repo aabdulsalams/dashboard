@@ -1,8 +1,6 @@
 pipeline {
     agent any
     
-    tools {nodejs "nodejs"}
-
     environment {
         basic_storage_endpoint = 'nanda-test/testing-micro-fe'
         app_name_basic = '360-client-portal-frontend'
@@ -37,7 +35,7 @@ pipeline {
         stage("Build Application") {
             steps {
                 script {
-                    sh "node --version"
+                    sh "/home/andi_abdul/.nvm/versions/node/v16.17.1/bin/node --version"
 //                     sh "npm run build"
                 }
             }
