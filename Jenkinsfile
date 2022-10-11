@@ -35,8 +35,8 @@ pipeline {
         stage("Build Application") {
             steps {
                 script {
-                    sh "/home/andi_abdul/.nvm/versions/node/v16.17.1/bin/npm install"
-                    sh "/home/andi_abdul/.nvm/versions/node/v16.17.1/bin/npm run build"
+                    sh "npm install"
+                    sh "npm run build"
                 }
             }
         }
