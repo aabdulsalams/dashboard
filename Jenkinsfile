@@ -33,7 +33,6 @@ pipeline {
                 }
             }
         }
-        https://plugins.jenkins.io/nodejs/
         stage("Build Application") {
             steps {
                 script {
