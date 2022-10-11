@@ -44,7 +44,7 @@ pipeline {
            steps {
                withCredentials([file(credentialsId: 'cloud-storage-object-admin', variable: 'GC_KEY')]) {
                    sh "gcloud auth activate-service-account --key-file=${GC_KEY}"
-                   sh "gsutil -m cp -R src gs://${storage_endpoint}"
+                   sh "gsutil -m cp -R dist gs://${storage_endpoint}"
                 }
             }
         }
