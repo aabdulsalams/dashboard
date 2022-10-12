@@ -14,7 +14,7 @@ pipeline {
                     env.feature_name = scm.getUserRemoteConfigs()[0].getUrl().tokenize('/').last().split("\\.")[0]
                     // ganti sementara master => main
                     if ("${env.BRANCH_NAME}" == "main") {
-                        env.service_dir = "dashboard/prod"
+                        env.service_dir = "${feature_name}/prod"
                         env.storage_endpoint = "${basic_storage_endpoint}/${feature_name}/prod"
                     }
                     else if ("${env.BRANCH_NAME}" == "testing") {
@@ -22,11 +22,11 @@ pipeline {
                         env.storage_endpoint = "${basic_storage_endpoint}/${feature_name}/testing"
                     }
                     else if ("${env.BRANCH_NAME}" == "release") {
-                        env.service_dir = "dashboard/prerelase"
+                        env.service_dir = "${feature_name}/prerelase"
                         env.storage_endpoint = "${basic_storage_endpoint}/${feature_name}/prerelease"
                     }
                     else {
-                        env.service_dir = "dashboard/unknown"
+                        env.service_dir = "${feature_name}/unknown"
                         env.storage_endpoint = "${basic_storage_endpoint}/${feature_name}/unknown"
                     }
                 }
